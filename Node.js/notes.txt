@@ -1,0 +1,18 @@
+MVC: "Model View Controller": Separation of Concerns!
+
+Models: 
+- Represent your data in code
+- Work with your data (ex: save, fetch)
+
+Views:
+- What the user sees in the app, rendering the various pages
+- Decoupled from your application code, light integrations regarding
+the data we inject into the templating engine
+
+Controllers: 
+- Connecting your models and your views (views shouldn't care about application logic,
+so the controls trigger passing of data or saving of data between models and controls)
+- Contains the "in-between" logic
+--> ROUTES are connected to the controllers in that which route makes decisions about
+    which data/view is rendered and where/how
+- Controllers are split across Middleware functions
