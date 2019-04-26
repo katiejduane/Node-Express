@@ -16,3 +16,24 @@ so the controls trigger passing of data or saving of data between models and con
 --> ROUTES are connected to the controllers in that which route makes decisions about
     which data/view is rendered and where/how
 - Controllers are split across Middleware functions
+
+SQL & NoSQL:
+- In NoSQL tables are called 'collections' but they're not the equivalent of tables.
+In collections we don't have records, but documents, that kind of look like JS objects.
+NoSQL doesn't have a strict schema. You can store multiple documents with different 
+structures in the same collection. In NoSQL we have no real relations, instead we go for
+duplicate data. We can also have mixed data within a collection. NO structure is required
+and we general have no data relations.
+
+- In SQL: We have structured tables with no duplication but RELATIONS between tables.
+Structure is required and we generally don't have mixed data. Records, not documents.
+
+NoSQL vs. SQL:
+- Horizontal vs. Vertical Scaling: In horizontal, we simply add more servers, and merge
+data into one database. In vertical, we make our existing server stronger by adding more
+CPU or memory.
+- SQL uses schema and relations. Horizontal scaling is extremely difficult if not impossible.
+But vertical scaling is possible.
+-NoSQL is schemaless and has only a few relations if any at all, the data is typically not 
+distributed across multiple collections, but instead merged or nested docs within an existing
+document. Horizontal scaling is easier because it works with fewer connections. 
