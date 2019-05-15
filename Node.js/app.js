@@ -5,16 +5,9 @@ const bodyParser = require('body-parser');
 // const expressHbs = require('express-handlebars');
 const errorController = require('./controllers/error')
 
-const app = express();
+const db = require('./util/database')
 
-// app.engine(
-//   'hbs',
-//   expressHbs({
-//     layoutsDir: 'views/layouts/',
-//     defaultLayout: 'main-layout',
-//     extname: 'hbs'
-//   })
-// );
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
