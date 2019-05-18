@@ -8,6 +8,10 @@ const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
 const Product = require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
 
 const app = express();
 
@@ -34,35 +38,44 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-//this is a special method that is aware of all your models and creates tables for them, 
-// and if you have them, relations
 
 Product.belongsTo(User, {
     constraints: true,
     //this means if the user is deleted, all of their products are deleted, too!
     onDelete: 'CASCADE'
 }); //user createdproject
-
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, {through: OrderItem})
 
+//this is a special method that is aware of all your models and creates tables for them, 
+// and if you have them, relations
 sequelize
     // .sync({force: true})
     .sync()
     .then(result => {
         return User.findByPk(1);
         // console.log(result);
-        
     })
     .then(user => {
         if(!user){
             User.create({name: 'Katie', email: 'dummyemail@max.com'})
         }
-        return Promise.resolve(user);
+        // return Promise.resolve(user);
         //returning Promise.resolve so that a .then can be chained, as 'user' is just
         //a JS object, not a promise
+        return user;
     })
     .then(user => {
         // console.log(user);
+        return user.createCart()
+    })
+    .then(cart => {
         app.listen(3000);
     })
     .catch(err => {
